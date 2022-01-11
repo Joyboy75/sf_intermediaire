@@ -54,7 +54,7 @@ class AdminBrandController extends AbstractController {
                 'notice',
                 'Une brand a été créé'
             );
-
+            
             return $this->redirectToRoute('admin_brand_list');
         }
 

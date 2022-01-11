@@ -1,0 +1,30 @@
+{% extends "admin/base.html.twig" %}
+
+{% block main %}
+ 
+    {{form_start(mediaForm,  {'attr' : {'class' : 'form'}})}}
+
+	{# création d'un label #}
+	{{ form_label(mediaForm.src, 'Fichier de l\'image', {'label_attr' : {'class' : 'label'} } ) }}
+
+	{#création des champs avec form_widget#}
+	{{ form_widget(mediaForm.src, { 'attr' : {'placeholder' : 'Fichier de l\'image', 'class' : 'title' } } )}}
+
+
+	{{ form_label(mediaForm.alt, 'Alt de l\'image', {'label_attr' : {'class' : 'label'} } ) }}
+
+	{{ form_widget(mediaForm.alt, {'attr' : {'placeholder' : 'Alt de l\'image', 'class' : 'content' } } ) }}
+
+	{{ form_label(mediaForm.title, 'Title de l\'image', {'label_attr' : {'class' : 'label'} } ) }}
+
+	{{ form_widget(mediaForm.title, {'attr' : {'placeholder' : 'Title de l\'image', 'class' : 'content' } } ) }}
+	
+    {{ form_label(mediaForm.product, 'Title de l\'image', {'label_attr' : {'class' : 'label'} } ) }}
+
+	{{ form_widget(mediaForm.product, {'attr' : {'placeholder' : 'Title de l\'image', 'class' : 'content' } } ) }}
+
+	{{form_widget(mediaForm.enregistrer, {'attr' : {'class' : 'btn'}})}}
+
+	{{form_end(mediaForm)}}
+
+{% endblock %}

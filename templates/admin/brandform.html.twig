@@ -18,9 +18,9 @@
 
 	{{ form_widget(brandForm.description, {'attr' : {'placeholder' : 'Contenu de la brand', 'class' : 'content' } } ) }}
 
-	{# {{ form_label(brandForm.year, 'Année de la brand', {'label_attr' : {'class' : 'label'} } ) }}
+	{{ form_label(brandForm.media, 'Media de la brand', {'label_attr' : {'class' : 'label'} } ) }}
 
-	{{ form_widget(brandForm.year, {'attr' : {'placeholder' : 'Année de la brand', 'class' : 'content' } } ) }} #}
+	{{ form_widget(brandForm.media, {'attr' : {'placeholder' : 'Media de la brand', 'class' : 'content' } } ) }}
 
 	{{form_widget(brandForm.enregistrer, {'attr' : {'class' : 'btn'}})}}
 

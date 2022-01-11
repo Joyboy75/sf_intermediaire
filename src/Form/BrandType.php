@@ -15,6 +15,7 @@ class BrandType extends AbstractType
         $builder
             ->add('name')
             ->add('description')
+            ->add('media')
             ->add('enregistrer', SubmitType::class);
         ;
     }

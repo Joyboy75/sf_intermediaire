@@ -18,9 +18,9 @@
 
 	{{ form_widget(categoryForm.description, {'attr' : {'placeholder' : 'Contenu de la category', 'class' : 'content' } } ) }}
 
-	{# {{ form_label(categoryForm.year, 'Année de la category', {'label_attr' : {'class' : 'label'} } ) }}
+	{{ form_label(categoryForm.media, 'Media de la category', {'label_attr' : {'class' : 'label'} } ) }}
 
-	{{ form_widget(categoryForm.year, {'attr' : {'placeholder' : 'Année de la category', 'class' : 'content' } } ) }} #}
+	{{ form_widget(categoryForm.media, {'attr' : {'placeholder' : 'Media de la category', 'class' : 'content' } } ) }}
 
 	{{form_widget(categoryForm.enregistrer, {'attr' : {'class' : 'btn'}})}}
 
