@@ -1,0 +1,30 @@
+{% extends "admin/base.html.twig" %}
+
+
+{% block main %}
+
+	{# {{form(categoryForm)}} #}
+
+	{{form_start(categoryForm,  {'attr' : {'class' : 'form'}})}}
+
+	{# création d'un label #}
+	{{ form_label(categoryForm.name, 'Nom de la category', {'label_attr' : {'class' : 'label'} } ) }}
+
+	{#création des champs avec form_widget#}
+	{{ form_widget(categoryForm.name, { 'attr' : {'placeholder' : 'Nom de la category', 'class' : 'title' } } )}}
+
+
+	{{ form_label(categoryForm.description, 'Description de la category', {'label_attr' : {'class' : 'label'} } ) }}
+
+	{{ form_widget(categoryForm.description, {'attr' : {'placeholder' : 'Contenu de la category', 'class' : 'content' } } ) }}
+
+	{# {{ form_label(categoryForm.year, 'Année de la category', {'label_attr' : {'class' : 'label'} } ) }}
+
+	{{ form_widget(categoryForm.year, {'attr' : {'placeholder' : 'Année de la category', 'class' : 'content' } } ) }} #}
+
+	{{form_widget(categoryForm.enregistrer, {'attr' : {'class' : 'btn'}})}}
+
+	{{form_end(categoryForm)}}
+
+
+{% endblock %}

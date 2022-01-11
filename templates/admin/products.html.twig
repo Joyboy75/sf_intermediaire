@@ -1,0 +1,18 @@
+{% extends "admin/base.html.twig" %}
+
+{% block main %}
+
+{% for message in app.flashes('notice') %}
+		<h3>{{ message }}</h3>
+	{% endfor %}
+	
+
+	{% for product in products %}
+
+		<h2>
+			<a href="{{ path("admin_product_show", {'id' : product.id } ) }}">{{product.name}}</a>
+		</h2>
+
+	{% endfor %}
+
+{% endblock %}

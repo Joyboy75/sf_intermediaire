@@ -1,0 +1,11 @@
+{% extends "admin/base.html.twig" %}
+
+{% block main %}
+
+	<h2>{{ product.name }}</h2>
+	<p>{{ product.price }}</p>
+	<p>{{ product.stock }}</p>
+	<p>{{ product.brand.name }}</p>
+	<p>{{ product.category.name }}</p>
+
+{% endblock %}

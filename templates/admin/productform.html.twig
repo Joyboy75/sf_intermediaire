@@ -1,0 +1,38 @@
+{% extends "admin/base.html.twig" %}
+
+
+{% block main %}
+
+	{# {{form(productForm)}} #}
+
+	{{form_start(productForm,  {'attr' : {'class' : 'form'}})}}
+
+	{# création d'un label #}
+	{{ form_label(productForm.name, 'Nom du product', {'label_attr' : {'class' : 'label'} } ) }}
+
+	{#création des champs avec form_widget#}
+	{{ form_widget(productForm.name, { 'attr' : {'placeholder' : 'Nom du product', 'class' : 'title' } } )}}
+
+
+	{{ form_label(productForm.price, 'Prix du product', {'label_attr' : {'class' : 'label'} } ) }}
+
+	{{ form_widget(productForm.price, {'attr' : {'placeholder' : 'Prix du product', 'class' : 'content' } } ) }}
+
+	{{ form_label(productForm.stock, 'Stock du product', {'label_attr' : {'class' : 'label'} } ) }}
+
+	{{ form_widget(productForm.stock, {'attr' : {'placeholder' : 'Stock du product', 'class' : 'content' } } ) }}
+	
+	{{ form_label(productForm.brand, 'Brand du product', {'label_attr' : {'class' : 'label'} } ) }}
+
+	{{ form_widget(productForm.brand, {'attr' : {'placeholder' : 'Brand du product', 'class' : 'content' } } ) }}
+	
+	{{ form_label(productForm.category, 'Category du product', {'label_attr' : {'class' : 'label'} } ) }}
+
+	{{ form_widget(productForm.category, {'attr' : {'placeholder' : 'Category du product', 'class' : 'content' } } ) }}
+
+	{{form_widget(productForm.enregistrer, {'attr' : {'class' : 'btn'}})}}
+
+	{{form_end(productForm)}}
+
+
+{% endblock %}
