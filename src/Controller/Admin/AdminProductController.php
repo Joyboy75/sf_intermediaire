@@ -20,7 +20,7 @@ class AdminProductController extends AbstractController {
     /**
      * @Route("admin/products", name="admin_product_list")
      */
-    public function productList(ProductRepository $productRepository){
+    public function adminProductList(ProductRepository $productRepository){
 
         $products = $productRepository->findAll();
     
@@ -30,7 +30,7 @@ class AdminProductController extends AbstractController {
          /**
          * @Route("admin/product/{id}", name="admin_product_show")
          */
-        public function productShow($id,ProductRepository $productRepository){
+        public function adminProductShow($id,ProductRepository $productRepository){
     
             $product = $productRepository->find($id);
         
@@ -40,7 +40,7 @@ class AdminProductController extends AbstractController {
             /**
      * @Route("admin/create/product/", name="admin_create_create")
      */
-    public function categoryCreate(Request $request, EntityManagerInterface $entityManagerInterface){
+    public function AdminCategoryCreate(Request $request, EntityManagerInterface $entityManagerInterface){
         $product = new Product();
 
         $productForm = $this->createForm(ProductType::class, $product);
@@ -50,6 +50,7 @@ class AdminProductController extends AbstractController {
         if($productForm->isSubmitted() && $productForm->isValid()){
             $entityManagerInterface->persist($product);
             $entityManagerInterface->flush();
+            
             $this->addFlash(
                 'notice',
                 'Un product a été créé'
@@ -65,7 +66,7 @@ class AdminProductController extends AbstractController {
      /**
       * @Route("admin/update/product/{id}", name="admin_category_update")
       */
-      public function productUpdate(
+      public function adminProductUpdate(
         $id,
          ProductRepository $productRepository,
          Request $request, // class permettant d'utiliser le formulaire de récupérer les information 
@@ -106,7 +107,7 @@ class AdminProductController extends AbstractController {
     /**
      * @Route("admin/delete/product/{id}", name="admin_product_delete")
      */
-    public function productDelete(
+    public function adminProductDelete(
         $id,
         ProductRepository $productRepository,
         EntityManagerInterface $entityManagerInterface
