@@ -2,6 +2,9 @@
 
 {% block main %}
 
+<h1> {{ front }} </h1>
+
+
 {% for image in product.media %}
     <img src="{{asset('media' ~ product.media )}}" alt="">
 {% endfor %}
