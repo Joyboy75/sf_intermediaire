@@ -2,11 +2,9 @@
 
 {% block main %}
 
-	{% for image in brand.media %}
 
-		<img width=200px src="{{ asset('media/' ~ image.src) }}" alt="{{ image.alt }}">
+		<img width=200px src="{{ asset('media/' ~ brand.media) }}" alt="{{brand.name}}">
 
-	{% endfor %}
 
 	<h2>{{ brand.name }}</h2>
 	<p>{{ brand.description }}</p>

@@ -10,8 +10,9 @@
 
 	{% for category in categories %}
 
-
 <div class="card">
+
+<img width=200px src="{{asset('media/' ~ category.media)}}" alt="{{category.name}}">
 		<h2>
 			<a href="{{ path("admin_category_show", {'id' : category.id } ) }}">{{category.name}}</a>
 		</h2>

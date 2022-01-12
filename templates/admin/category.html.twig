@@ -2,11 +2,9 @@
 
 {% block main %}
 
-{% for category in categories %}
 	
-	<img src="{{asset('media/'~ media.src)}}" alt="{{media.alt}}">
+	<img src="{{asset('media/' ~ category.media)}}" alt="{{category.name}}">
 
-{% endfor %}
 
 	<h2>{{ category.name }}</h2>
 	<p>{{ category.description }}</p>
