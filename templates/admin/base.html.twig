@@ -26,6 +26,18 @@
 			</nav>
 		</header>
 
+		{% for grproduct in gproducts.getAll %}
+			<h3>{{ grproduct.name }}</h3>
+		{% endfor %}
+
+		{% for grbrand in gbrands.getAll %}
+			<h3>{{ grbrand.name }}</h3>
+		{% endfor %}
+
+		{% for grcategories in gcategories.getAll %}
+			<h3>{{ grcategories.name }}</h3>
+		{% endfor %}
+
 		<div class="home">
          {% block main %}
 
