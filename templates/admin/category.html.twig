@@ -2,6 +2,12 @@
 
 {% block main %}
 
+{% for category in categories %}
+	
+	<img src="{{asset('media/'~ media.src)}}" alt="{{media.alt}}">
+
+{% endfor %}
+
 	<h2>{{ category.name }}</h2>
 	<p>{{ category.description }}</p>
 

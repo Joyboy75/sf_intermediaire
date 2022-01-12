@@ -4,12 +4,31 @@
 		<meta charset="UTF-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="{{asset('css/styleAdmin.css')}}">
+        <link rel="stylesheet" href="{{ asset('css/styleAdmin.css') }}">
+		<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&family=Roboto&display=swap" rel="stylesheet"/>
 		<title>Document</title>
 	</head>
 	<body>
 
-		{% block main %}{% endblock %}
+		<header>
+			<nav>
+				<a href="{{ path('admin_product_list' )}}">product</a>
+				<a href="{{ path('admin_brand_list' )}}">brand</a>
+				<a href="{{ path('admin_category_list' )}}">category</a>
+                <ul>
+    <li class="deroulant"><a href="#">add &ensp;</a>
+      <ul class="sous">
+        <li><a href="{{ path('admin_create_product' )}}">Ajouter un Product</a></li>
+        <li><a href="{{ path('admin_create_brand' )}}">Ajouter un Brand</a></li>
+        <li><a href="{{ path('admin_create_category' )}}">Ajouter une Category</a></li>
+      </ul>
+    </li>
+			</nav>
+		</header>
+
+		<div class="home">
+         {% block main %}{% endblock %}
+			</div>
 
 	</body>
 </html>

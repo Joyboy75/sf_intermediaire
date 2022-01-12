@@ -38,9 +38,9 @@ class AdminProductController extends AbstractController {
             }
 
             /**
-     * @Route("admin/create/product/", name="admin_create_create")
+     * @Route("admin/create/product/", name="admin_create_product")
      */
-    public function AdminCategoryCreate(Request $request, EntityManagerInterface $entityManagerInterface){
+    public function adminCategoryCreate(Request $request, EntityManagerInterface $entityManagerInterface){
         $product = new Product();
 
         $productForm = $this->createForm(ProductType::class, $product);

@@ -8,11 +8,16 @@
 		<h3>{{ message }}</h3>
 	{% endfor %}
 
+
+
 	{% for brand in brands %}
 
+<div class="card">
 		<h2>
 			<a href="{{ path("admin_brand_show", {'id' : brand.id } ) }}">{{brand.name}}</a>
 		</h2>
+
+</div>
 
 	{% endfor %}
 

@@ -6,6 +6,7 @@ use App\Entity\Brand;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class BrandType extends AbstractType
@@ -15,7 +16,9 @@ class BrandType extends AbstractType
         $builder
             ->add('name')
             ->add('description')
-            ->add('media')
+            ->add('media', FileType::class, [
+                'mapped' => false
+            ])
             ->add('enregistrer', SubmitType::class);
         ;
     }

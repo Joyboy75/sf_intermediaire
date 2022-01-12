@@ -9,121 +9,157 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\String\Slugger\SluggerInterface;
 
-class AdminCategoryController extends AbstractController {
-
-    // Pour les trois entités (Product, Brand et Category): faire le CRUD complet dans des AdminController
-
-    // Modèle des routes @Route("admin/create/product/", name="admin_create_product")
-
-
+class AdminCategoryController extends AbstractController
+{
     /**
      * @Route("admin/categories", name="admin_category_list")
      */
-    public function categoryList(CategoryRepository $categoryRepository){
-
+    public function adminListCategory(CategoryRepository $categoryRepository)
+    {
         $categories = $categoryRepository->findAll();
-    
-            return $this->render("admin/categories.html.twig", ['categories' => $categories]);
-        }
-    
-         /**
-         * @Route("admin/category/{id}", name="admin_category_show")
-         */
-        public function categoryShow($id,CategoryRepository $categoryRepository){
-    
-            $category = $categoryRepository->find($id);
-        
-                return $this->render("admin/category.html.twig", ['category' => $category]);
+
+        return $this->render("admin/categories.html.twig", ['categories' => $categories]);
+    }
+
+    /**
+     * @Route("admin/category/{id}", name="admin_category_show")
+     */
+    public function adminShowCategory($id, CategoryRepository $categoryRepository)
+    {
+        $category = $categoryRepository->find($id);
+
+        return $this->render("admin/category.html.twig", ['category' => $category]);
+    }
+
+    /**
+     * @Route("admin/update/category/{id}", name="admin_update_category")
+     */
+    public function adminUpdateCategory(
+        $id,
+        CategoryRepository $categoryRepository,
+        Request $request,
+        EntityManagerInterface $entityManagerInterface,
+        SluggerInterface $sluggerInterface
+    ) {
+
+        $category = $categoryRepository->find($id);
+
+        $categoryForm = $this->createForm(CategoryType::class, $category);
+
+        $categoryForm->handleRequest($request);
+
+        if ($categoryForm->isSubmitted() && $categoryForm->isValid()) {
+
+            // On récupère le fichier que l'on rentre dans le champs du formulaire
+            $mediaFile = $categoryForm->get('media')->getData();
+
+            if ($mediaFile) {
+
+                // On crée un nom unique avec le nom original de l'image pour éviter 
+                // tout problème lors de l'enregistrement dans le dossier public
+
+                // on récupère le nom original du fichier
+                $originalFilename = pathinfo($mediaFile->getClientOriginalName(), PATHINFO_FILENAME);
+
+                // On utilise slug sur le nom original pouur avoir un nom valide
+                $safeFilename = $sluggerInterface->slug($originalFilename);
+
+                // On ajoute un id unique au nom du fichier
+                $newFilename = $safeFilename . '-' . uniqid() . '.' . $mediaFile->guessExtension();
+
+                // On déplace le fichier dans le dossier public/media
+                // la destination est définie dans 'images_directory'
+                // du fichier config/services.yaml
+
+                $mediaFile->move(
+                    $this->getParameter('images_directory'),
+                    $newFilename
+                );
+
+                $category->setMedia($newFilename);
             }
 
-            /**
+            
+            $entityManagerInterface->persist($category);
+            $entityManagerInterface->flush();
+
+            return $this->redirectToRoute("admin_category_list");
+        }
+
+
+        return $this->render("admin/categoryform.html.twig", ['categoryForm' => $categoryForm->createView()]);
+    }
+
+    /**
      * @Route("admin/create/category/", name="admin_create_category")
      */
-    public function categoryCreate(Request $request, EntityManagerInterface $entityManagerInterface){
+    public function adminCategoryCreate(Request $request, EntityManagerInterface $entityManagerInterface, SluggerInterface $sluggerInterface)
+    {
         $category = new Category();
 
         $categoryForm = $this->createForm(CategoryType::class, $category);
 
         $categoryForm->handleRequest($request);
 
-        if($categoryForm->isSubmitted() && $categoryForm->isValid()){
+        if ($categoryForm->isSubmitted() && $categoryForm->isValid()) {
+
+            // On récupère le fichier que l'on rentre dans le champs du formulaire
+            $mediaFile = $categoryForm->get('media')->getData();
+
+            if ($mediaFile) {
+
+                // On crée un nom unique avec le nom original de l'image pour éviter 
+                // tout problème lors de l'enregistrement dans le dossier public
+
+                // on récupère le nom original du fichier
+                $originalFilename = pathinfo($mediaFile->getClientOriginalName(), PATHINFO_FILENAME);
+
+                // On utilise slug sur le nom original pouur avoir un nom valide
+                $safeFilename = $sluggerInterface->slug($originalFilename);
+
+                // On ajoute un id unique au nom du fichier
+                $newFilename = $safeFilename . '-' . uniqid() . '.' . $mediaFile->guessExtension();
+
+                // On déplace le fichier dans le dossier public/media
+                // la destination est définie dans 'images_directory'
+                // du fichier config/services.yaml
+
+                $mediaFile->move(
+                    $this->getParameter('images_directory'),
+                    $newFilename
+                );
+
+                $category->setMedia($newFilename);
+            }
+
+
             $entityManagerInterface->persist($category);
             $entityManagerInterface->flush();
-            $this->addFlash(
-                'notice',
-                'Une category a été créé'
-            );
 
-            return $this->redirectToRoute('admin_category_list');
+            return $this->redirectToRoute("admin_category_list");
         }
 
-        return $this->render('admin/categoryform.html.twig', [ 'categoryForm' => $categoryForm->createView()]);
-    
-    }
 
-     /**
-      * @Route("admin/update/category/{id}", name="admin_category_update")
-      */
-      public function categoryUpdate(
-        $id,
-         CategoryRepository $categoryRepository,
-         Request $request, // class permettant d'utiliser le formulaire de récupérer les information 
-         EntityManagerInterface $entityManagerInterface // class permettantd'enregistrer ds la bdd
-         ){
-             $category = $categoryRepository->find($id);
-
-             // Création du formulaire
-          $categoryForm = $this->createForm(CategoryType::class, $category);
-
-          // Utilisation de handleRequest pour demander au formulaire de traiter les informations
-      // rentrées dans le formulaire
-      // Utilisation de request pour récupérer les informations rentrées dans le formualire
-          $categoryForm->handleRequest($request);
-
-
-          if($categoryForm->isSubmitted() && $categoryForm->isValid())
-          {   
-              // persist prépare l'enregistrement ds la bdd analyse le changement à faire
-              $entityManagerInterface->persist($category);
-              $id = $categoryRepository->find($id);
-
-              // flush enregistre dans la bdd
-              $entityManagerInterface->flush();
-
-              $this->addFlash(
-                'notice',
-                'La category a bien été modifié !'
-            );
-
-              return $this->redirectToRoute('admin_category_list');
-
-          }
-
-          return $this->render('admin/categoryform.html.twig', ['categoryForm'=> $categoryForm->createView()]);
+        return $this->render("admin/categoryform.html.twig", ['categoryForm' => $categoryForm->createView()]);
     }
 
     /**
-     * @Route("admin/delete/category/{id}", name="admin_category_delete")
+     * @Route("admin/delete/category/{id}", name="admin_delete_category")
      */
-    public function categoryDelete(
+    public function adminDeleteCategory(
         $id,
         CategoryRepository $categoryRepository,
         EntityManagerInterface $entityManagerInterface
-        ){
+    ) {
 
-            $category = $categoryRepository->find($id);
+        $category = $categoryRepository->find($id);
 
-            //remove supprime le category et flush enregistre ds la bdd
-            $entityManagerInterface->remove($category);
-            $entityManagerInterface->flush();
+        $entityManagerInterface->remove($category);
 
-            $this->addFlash(
-                'notice',
-                'Votre category a bien été supprimé'
-            );
+        $entityManagerInterface->flush();
 
-            return $this->redirectToRoute('admin_category_list');
-
+        return $this->redirectToRoute("admin_category_list");
     }
 }

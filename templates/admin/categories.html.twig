@@ -10,9 +10,13 @@
 
 	{% for category in categories %}
 
+
+<div class="card">
 		<h2>
 			<a href="{{ path("admin_category_show", {'id' : category.id } ) }}">{{category.name}}</a>
 		</h2>
+
+</div>
 
 	{% endfor %}
 
