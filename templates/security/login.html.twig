@@ -10,10 +10,12 @@
 
     {% if app.user %}
         <div class="mb-3">
-            You are logged in as {{ app.user.username }}, <a href="{{ path('app_logout') }}">Logout</a>
+            Vous etes connecté avec {{ app.user.username }}, {{ app.user.date | date('d-m-Y') }}<a href="{{ path('app_logout') }}">Logout</a>
         </div>
     {% endif %}
 
+
+{% if app.user is null %}
     <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
     <label for="inputEmail">Email</label>
     <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
@@ -38,5 +40,7 @@
     <button class="btn btn-lg btn-primary" type="submit">
         Sign in
     </button>
+
+    {% endif %}
 </form>
 {% endblock %}
