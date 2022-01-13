@@ -64,7 +64,7 @@ class AdminProductController extends AbstractController {
     }
 
      /**
-      * @Route("admin/update/product/{id}", name="admin_category_update")
+      * @Route("admin/update/product/{id}", name="admin_update_product")
       */
       public function adminProductUpdate(
         $id,
@@ -105,7 +105,7 @@ class AdminProductController extends AbstractController {
     }
 
     /**
-     * @Route("admin/delete/product/{id}", name="admin_product_delete")
+     * @Route("admin/delete/product/{id}", name="admin_delete_product")
      */
     public function adminProductDelete(
         $id,

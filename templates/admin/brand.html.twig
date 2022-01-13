@@ -1,9 +1,12 @@
 {% extends "admin/base.html.twig" %}
 
+
+
 {% block main %}
 
 <h1> {{ admin }} </h1>
 
+	<div class="card">	
 
 		<img width=200px src="{{ asset('media/' ~ brand.media) }}" alt="{{brand.name}}">
 
@@ -11,4 +14,11 @@
 	<h2>{{ brand.name }}</h2>
 	<p>{{ brand.description }}</p>
 
+
+</div>	
+
+	<div class="btn-upd-dlt">
+			<a href="{{ path('admin_update_brand', {'id' : brand.id}) }}">Modifier</a>
+			<a href="{{ path('admin_delete_brand', {'id' : brand.id} )}}">Supprimer</a>
+		</div>
 {% endblock %}

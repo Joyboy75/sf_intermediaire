@@ -4,6 +4,9 @@
 
 <h1> {{ admin }} </h1>
 
+
+	<div class="card">	
+
 	
 	<img src="{{asset('media/' ~ category.media)}}" alt="{{category.name}}">
 
@@ -11,4 +14,13 @@
 	<h2>{{ category.name }}</h2>
 	<p>{{ category.description }}</p>
 
+
+
+	</div>
+
+	<div class="btn-upd-dlt">
+			<a href="{{ path('admin_update_category', {'id' : category.id}) }}">Modifier</a>
+			<a href="{{ path('admin_delete_category', {'id' : category.id} )}}">Supprimer</a>
+		</div>
+		
 {% endblock %}

@@ -5,9 +5,8 @@
 <h1> {{ front }} </h1>
 
 
-<img src="{{asset('media/' ~ category.media)}}" alt="{{category.name}}">
-	{% for category in categories %}
-
+{% for category in categories %}
+		<img width=200px src="{{ asset('media/' ~ category.media) }}" alt="{{ category.name }}">
 		<h2>
 			<a href="{{ path("category_show", {'id' : category.id } ) }}">{{category.name}}</a>
 		</h2>
